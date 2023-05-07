@@ -97,7 +97,11 @@ export class ChatGateway {
     await this.chatService.createChatRoom(room, user1, avatar, user2Id);
     // Broadcast newly created room name to all users
     if (!user2Id) {
-      this.server.emit('createChatRoom', room.name);
+      const roomPublicData = {...room, password: undefined};
+
+      delete roomPublicData.password;
+
+      this.server.emit('createChatRoom', roomPublicData);
     }
     return 0;
   }
