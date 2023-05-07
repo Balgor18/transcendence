@@ -110,23 +110,17 @@ const Chat = () => {
     errorAlert('Password cannot be empty');
   };
 
-  socket.on('connect', () => {
-  });
-  socket.on('createChatRoom', (roomName: string) => {
-  });
-  socket.on('exception', (res) => {
-    errorAlert(String(res.msg));
-  });
-
   /*************************************************************
    * Event listeners
    **************************************************************/
   useEffect(() => {
     // Activate listeners and subscribe to events as the component is mounted
     socket.on('connect', () => {});
-    socket.on('createChatRoom', (roomName: string) => {});
+    socket.on('createChatRoom', (room: ChatRoomType) => {
+      setChatRooms((oldChatRooms) => [...oldChatRooms, room]);
+    });
     socket.on('exception', (res) => {
-      console.error('ERROR: ' + res.msg);
+      errorAlert(String(res.msg));
     });
     socket.on('createMessage', () => {})
 
