@@ -39,7 +39,7 @@ import * as color from '../UI/colorsPong';
 
 /*************************************************************
  * Chat entrance
- 
+
  * It is the entrance for chat rooms.
  * Users can create/join chat rooms.
 **************************************************************/
@@ -68,12 +68,11 @@ const Chat = () => {
   const [isPasswordRight, setIsPasswordRight] = useState<boolean>(false);
   const [clickedRoomToJoin, setClickedRoomToJoin] = useState<string>('');
 
-  const findAllChatRooms = async () => {
+  useEffect(() => {
     socket.emit('findAllChatRooms', {}, (response: ChatRoomType[]) => {
       setChatRooms(response);
     });
-  };
-  findAllChatRooms();
+  }, []);
 
   const [open, setOpen] = useState<boolean>(false);
   const handleClickOpen = () => {
