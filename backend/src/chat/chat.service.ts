@@ -173,7 +173,15 @@ export class ChatService {
   }
 
   async findAllChatRooms(): Promise<any[]> {
-    return await this.prisma.chatRoom.findMany({ include: { members: true } });
+    return await this.prisma.chatRoom.findMany(
+      {
+        select: {
+          modes: true,
+          name: true,
+          members: true,
+        },
+      }
+    );
   }
 
   // Return all members from the chatroom
